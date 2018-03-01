@@ -80,10 +80,10 @@ public class JsonUtils {
             return null;
         }
     }
-/*
+
     public static boolean create(Context context, String fileName, String jsonString){
         try {
-            FileOutputStream fos = // TODO: Your code goes here
+            FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
             if (jsonString != null) {
                 fos.write(jsonString.getBytes());
             }
@@ -96,11 +96,21 @@ public class JsonUtils {
         }
 
     }
-    */
+
 
     public static boolean append(Context context, String fileName, String jsonString) {
-        // TODO: Your code here
-
+        try {
+            FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_APPEND);
+            if(jsonString != null){
+                try {
+                    fos.write(jsonString.getBytes());
+                }catch (IOException ioException){
+                    return false;
+                }
+            }
+        }catch (FileNotFoundException fileNotFound){
+            return false;
+        }
         return false;
     }
 
