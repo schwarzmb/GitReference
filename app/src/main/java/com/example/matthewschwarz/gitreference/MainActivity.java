@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         rowView = findViewById(R.id.MainListView);
-        itemList = populateData("gitReference.json");
+        itemList = populateData(getString(R.string.gitReference_json));
         adapter = new Adapter(getApplicationContext(), itemList);
 
         rowView.setAdapter(adapter);
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     public ArrayList<GitReference> populateData(String fileName){
         String jsonString = processData(fileName);
-        Log.i("JSON", jsonString);
+        Log.i(getString(R.string.JSON), jsonString);
         ArrayList<GitReference> references = JsonUtils.populateGitReferences(jsonString);
         return references;
         //return JsonUtils.populateGitReferences(fileName);
@@ -38,22 +38,34 @@ public class MainActivity extends AppCompatActivity {
         String jsonstring = "";
         boolean isFilePresent = JsonUtils.isFilePresent(this, filename);
 
-        if(isFilePresent){
+        if(isFilePresent) {
             jsonstring = JsonUtils.read(this, filename);
-            Log.i("JSON", "JSON file not present. Creating.......");
             InputStream inputStream = null;
             try{
-                inputStream = getApplicationContext().getAssets().open("gitReference.json");
+                inputStream = getApplicationContext().getAssets().open(getString(R.string.gitReference_json));
 
             }catch(Exception ex){
-                System.out.println("gitReference file not found");
+                System.out.println(getString(R.string.gitRefNotFound));
+            }
+            String example = JsonUtils.parseJsonToString(inputStream);
+            Log.i(getString(R.string.JSON), getString(R.string.JSONFilePresent));
+            //Log.i("JSON", "JSON file not present. Creating.......");
+        }else{
+            //create file since one is not found
+            Log.i(getString(R.string.JSON), getString(R.string.JSONFileNotPresent));
+            InputStream inputStream = null;
+            try{
+                inputStream = getApplicationContext().getAssets().open(getString(R.string.gitReference_json));
+
+            }catch(Exception ex){
+                System.out.println(getString(R.string.gitRefNotFound));
             }
             jsonstring = JsonUtils.parseJsonToString(inputStream);
             boolean isFileCreated = JsonUtils.create(this, filename, jsonstring);
             if(isFileCreated){
-                Log.i("JSON", "Created the filesystem JSON");
+                Log.i(getString(R.string.JSON), getString(R.string.CreatedJSON));
             }else{
-                Log.i("JSON", "Filesystem not created");
+                Log.i(getString(R.string.JSON), getString(R.string.FileNotCreatedError));
 
             }
 

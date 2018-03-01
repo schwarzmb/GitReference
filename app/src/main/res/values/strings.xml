@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GitReference</string>
+    <string name="gitReference.json">gitReference.json</string>
+    <string name="gitRefNotFound">gitReference file not found</string>
+    <string name="JSONFilePresent">JSON file is present</string>
+    <string name="JSONFileNotPresent">JSON file not present. Creating.......</string>
+    <string name="JSON">JSON</string>
+    <string name="CreatedJSON">"Created the filesystem JSON"</string>
+    <string name="FileNotCreatedError">"Filesystem not created"</string>
+
 </resources>

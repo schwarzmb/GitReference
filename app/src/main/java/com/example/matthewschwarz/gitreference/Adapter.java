@@ -56,6 +56,6 @@ public class Adapter extends BaseAdapter{
         sectionView.setText(cmd.getSection());
         explanationView.setText(cmd.getExplanation());
 
-        return view;
+        return rowView;
     }
 }
